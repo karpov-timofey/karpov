@@ -1,0 +1,302 @@
+Задание1
+namespace ConsoleApp4
+{
+    internal class Program
+        {
+            static void Main()
+            {
+                Person person = new Person("Артем", 21);
+                person.SayHello();
+
+                try
+                {
+                    person.Age = 150;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                try
+                {
+                    person.Age = -5;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                Console.ReadLine();
+            }
+        }
+
+        class Person
+        {
+            private string name;
+            private int age;
+
+            public string Name
+            {
+                get { return name; }
+                set { name = value; }
+            }
+
+            public int Age
+            {
+                get { return age; }
+                set
+                {
+                    if (value < 0 || value > 120)
+                        throw new ArgumentException("Возраст должен быть от 0 до 120!");
+                    age = value;
+                }
+            }
+
+            public Person(string name, int age)
+            {
+                Name = name;
+                Age = age;
+            }
+
+            public void SayHello()
+            {
+                Console.WriteLine($"Привет, я {Name}, мне {Age} год!");
+            }
+        }
+    }
+
+
+Задание2
+    class Program
+    {
+        static void Main()
+        {
+            Phone phone = new Phone("Samsung", 90);
+            phone.UsePhone();
+            phone.UsePhone();
+
+            try
+            {
+                phone.BatteryLevel = -10;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+    }
+
+    class Phone
+    {
+        private string brand;
+        private int batteryLevel;
+
+        public string Brand
+        {
+            get { return brand; }
+            set { brand = value; }
+        }
+
+        public int BatteryLevel
+        {
+            get { return batteryLevel; }
+            set
+            {
+                if (value < 0 || value > 100)
+                    throw new ArgumentException("Заряд должен быть от 0 до 100!");
+                batteryLevel = value;
+            }
+        }
+
+        public Phone(string brand, int batteryLevel)
+        {
+            Brand = brand;
+            BatteryLevel = batteryLevel;
+        }
+
+        public void UsePhone()
+        {
+            batteryLevel = Math.Max(0, batteryLevel - 10);
+            Console.WriteLine($"Телефон {Brand}, заряд: {batteryLevel}%.");
+        }
+    }
+}
+
+Задание3
+    class Program
+    {
+        static void Main()
+        {
+            BankAccount account = new BankAccount("Артем", 10000);
+            account.Deposit(500);
+            account.Withdraw(500);
+            account.Withdraw(1500);
+
+            Console.ReadLine();
+        }
+    }
+
+    class BankAccount
+    {
+        private string owner;
+        private double balance;
+
+        public string Owner
+        {
+            get { return owner; }
+            set { owner = value; }
+        }
+
+        public double Balance
+        {
+            get { return balance; }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Баланс не может быть отрицательным!");
+                balance = value;
+            }
+        }
+
+        public BankAccount(string owner, double balance)
+        {
+            Owner = owner;
+            Balance = balance;
+        }
+
+        public void Deposit(double amount)
+        {
+            if (amount <= 0)
+                throw new ArgumentException("Сумма должна быть положительной!");
+
+            Balance += amount;
+            Console.WriteLine($"{Owner}, баланс: {Balance}.");
+        }
+
+        public void Withdraw(double amount)
+        {
+            if (amount <= 0);
+        }
+    }
+}
+
+Задание4
+    class Program
+    {
+        static void Main()
+        {
+            Circle circle = new Circle(5);
+            circle.GetArea();
+
+            try
+            {
+                circle.Radius = -2;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Circle smallCircle = new Circle(1);
+            smallCircle.GetArea();
+
+            Console.ReadLine();
+        }
+    }
+
+    class Circle
+    {
+        private double radius;
+
+        public double Radius
+        {
+            get { return radius; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Радиус должен быть больше 0!");
+                radius = value;
+            }
+        }
+
+        public Circle(double radius)
+        {
+            Radius = radius;
+        }
+
+        public void GetArea()
+        {
+            double area = Math.PI * Math.Pow(radius, 2);
+            Console.WriteLine($"Площадь круга: {area}");
+        }
+    }
+}
+
+
+Задание5
+    class Program
+    {
+        static void Main()
+        {
+            Pet pet = new Pet("Рекс", 80);
+            pet.Play();
+            pet.Rest();
+
+            try
+            {
+                pet.Energy = 150;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            pet.Play();
+
+            Console.ReadLine();
+        }
+    }
+
+    class Pet
+    {
+        private string name;
+        private int energy;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public int Energy
+        {
+            get { return energy; }
+            set
+            {
+                if (value < 0 || value > 100)
+                    throw new ArgumentException("Энергия должна быть от 0 до 100!");
+                energy = value;
+            }
+        }
+
+        public Pet(string name, int energy)
+        {
+            Name = name;
+            Energy = energy;
+        }
+
+        public void Play()
+        {
+            energy = Math.Max(0, energy - 20);
+            Console.WriteLine($"{Name} играет, энергия: {energy}.");
+        }
+
+        public void Rest()
+        {
+            energy = Math.Min(100, energy + 30);
+            Console.WriteLine($"{Name} отдыхает, энергия: {energy}.");
+        }
+    }
+}
