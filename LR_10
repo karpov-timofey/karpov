@@ -1,0 +1,346 @@
+Задание1
+class Program
+    {
+        static void Main()
+        {
+            Book book1 = new Book("Война и мир", 1200);
+            book1.Read();
+
+            Book book2 = new Book("1984");
+            book2.Read();
+
+            Book book3 = new Book();
+            book3.Read();
+
+            try
+            {
+                Book book4 = new Book("Ошибка", 0);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+    }
+
+    class Book
+    {
+        private string title;
+        private int pages;
+
+        public string Title
+        {
+            get { return title; }
+            set { title = value; }
+        }
+
+        public int Pages
+        {
+            get { return pages; }
+            set
+            {
+                if (value < 1 || value > 5000)
+                    throw new ArgumentException("Страниц должно быть от 1 до 5000!");
+                pages = value;
+            }
+        }
+
+        public Book(string title, int pages)
+        {
+            Title = title;
+            Pages = pages;
+        }
+
+        public Book(string title) : this(title, 100)
+        {
+        }
+
+        public Book() : this("Без названия", 1)
+        {
+        }
+
+        public void Read()
+        {
+            Console.WriteLine($"Читаю книгу \"{Title}\", страниц: {Pages}.");
+        }
+    }
+}
+
+
+Задание2
+    class Program
+    {
+        static void Main()
+        {
+            Employee employee1 = new Employee("Артем", 80000);
+            employee1.Work();
+
+            Employee employee2 = new Employee("Дима");
+            employee2.Work();
+
+            try
+            {
+                Employee employee3 = new Employee("Ошибка", -1000);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+    }
+
+    class Employee
+    {
+        private string name;
+        private decimal salary;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public decimal Salary
+        {
+            get { return salary; }
+            set
+            {
+                if (value < 0 || value > 1000000)
+                    throw new ArgumentException("Зарплата не может быть отрицательной или превышать 1 000 000!");
+                salary = value;
+            }
+        }
+
+        public Employee(string name, decimal salary)
+        {
+            Name = name;
+            Salary = salary;
+        }
+
+        public Employee(string name) : this(name, 50000)
+        {
+        }
+
+        public void Work()
+        {
+            Console.WriteLine($"{Name} работает, зарплата: {Salary}.");
+        }
+    }
+}
+
+Задание3
+    class Program
+    {
+        static void Main() 
+        {
+            Laptop laptop = new Laptop("Dell", 16, 85);
+            laptop.PowerOn();
+            laptop.Work();
+
+            try
+            {
+                Laptop laptop2 = new Laptop("HP", 0, 100);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+    }
+
+    class Device
+    {
+        private string brand;
+
+        public string Brand
+        {
+            get { return brand; }
+            set { brand = value; }
+        }
+
+        public Device(string brand)
+        {
+            Brand = brand;
+        }
+
+        public void PowerOn()
+        {
+            Console.WriteLine($"{Brand} включён.");
+        }
+    }
+
+    class Laptop : Device
+    {
+        private int ram;
+        private int battery;
+
+        public int Ram
+        {
+            get { return ram; }
+            set
+            {
+                if (value < 1 || value > 64)
+                    throw new ArgumentException("ОЗУ должно быть от 1 до 64!");
+                ram = value;
+            }
+        }
+
+        public int Battery
+        {
+            get { return battery; }
+            set
+            {
+                if (value < 0 || value > 100)
+                    throw new ArgumentException("Заряд должен быть от 0 до 100!");
+                battery = value;
+            }
+        }
+
+        public Laptop(string brand, int ram, int battery)
+            : base(brand) 
+        {
+            Ram = ram;
+            Battery = battery;
+        }
+
+        public void Work()
+        {
+            Console.WriteLine($"Ноутбук {Brand}, ОЗУ: {Ram} ГБ, заряд: {Battery}%.");
+        }
+    }
+}
+
+Задание4
+    class Program
+    {
+        static void Main()
+        {
+            Point point1 = new Point(3.5, 7.2);
+            point1.Show();
+
+            Point point2 = new Point(5);
+            point2.Show();
+
+            Point point3 = new Point();
+            point3.Show();
+
+            Console.ReadLine();
+        }
+    }
+
+    class Point
+    {
+        private double x;
+        private double y;
+
+        public double X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+
+        public double Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+
+        public Point(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public Point(double value) : this(value, value)
+        {
+        }
+
+        public Point() : this(0, 0)
+        {
+        }
+
+        public void Show()
+        {
+            Console.WriteLine($"Точка: ({X}, {Y})");
+        }
+    }
+}
+
+
+Задание5
+    class Program
+    {
+        static void Main()
+        {
+            Cat cat1 = new Cat("Мурзик", 9);
+            cat1.Speak();
+            cat1.Meow();
+            cat1.Meow();
+
+            Cat cat2 = new Cat("Барсик");
+            cat2.Speak();
+            cat2.Meow();
+
+            Console.ReadLine();
+        }
+    }
+
+    class Animal
+    {
+        private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public Animal(string name)
+        {
+            Name = name;
+        }
+
+        public void Speak()
+        {
+            Console.WriteLine($"{Name} издаёт звук.");
+        }
+    }
+
+    class Cat : Animal
+    {
+        private int lives;
+
+        public int Lives
+        {
+            get { return lives; }
+            set
+            {
+                if (value < 1 || value > 9)
+                    throw new ArgumentException("Количество жизней должно быть от 1 до 9!");
+                lives = value;
+            }
+        }
+
+        public Cat(string name, int lives)
+            : base(name)
+        {
+            Lives = lives;
+        }
+
+        public Cat(string name) : this(name, 9)
+        {
+        }
+
+        public void Meow()
+        {
+            lives = Math.Max(1, lives - 1);
+            Console.WriteLine($"{Name} мяукнул, осталось жизней: {Lives}.");
+        }
+    }
+}
